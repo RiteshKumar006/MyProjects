@@ -30,7 +30,8 @@ if (navigator.geolocation) {
         .openPopup();
 
       map.on('click', function (e) {
-        form.classList.remove('hidden')
+        form.classList.remove('hidden');
+        
       //   console.log('Map Event', e);
       //   L.marker([e.latlng.lat, e.latlng.lng])
       //     .addTo(map)
