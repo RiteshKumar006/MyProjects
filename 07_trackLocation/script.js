@@ -10,24 +10,27 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
-let map, mapEvent;
-console.log("cALUENOJADJ")
+// let map, mapEvent;
 
 class App {
   #map;
   #mapEvent;
   constructor() {
-    console.log("cxzxx")
-    this._getPosition()
-    console.log("this")
+    this._getPosition();
+
+    form.addEventListener('submit', this._newWorkout.bind(this));
+    inputType.addEventListener('change', this._toggleElevationField);
   }
 
   _getPosition() {
-    if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(this._loadMap.bind(this), function(){
-      alert("Could not get your Location")
-    })
-  }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        this._loadMap.bind(this),
+        function () {
+          alert('Could not get your Location');
+        }
+      );
+    }
   }
 
   _loadMap(position) {
@@ -46,18 +49,37 @@ class App {
       .openPopup();
 
     // Handling Click on Map
-    this.#map.on('click', function (mapE) {
-      this.#mapEvent = mapE;
-      form.classList.remove('hidden');
-      inputDistance.focus();
-    });
+    this.#map.on('click', this._showForm.bind(this));
   }
 
-  _showForm() {}
+  _showForm(mapE) {
+    this.#mapEvent = mapE;
+    form.classList.remove('hidden');
+    inputDistance.focus();
+  }
 
-  _toggleElevationField() {}
+  _toggleElevationField() {
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+  }
 
-  _newWorkout() {}
+  _newWorkout(event) {
+    event.preventDefault();
+    //Display Marker
+    // console.log('Map Event', mapEvent, 'inputDistance -- >', inputDistance.value);
+    L.marker([this.#mapEvent.latlng.lat, this.#mapEvent.latlng.lng])
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+        })
+      )
+      .setPopupContent()
+      .openPopup();
+  }
 }
 
 if (navigator.geolocation) {
@@ -70,39 +92,4 @@ if (navigator.geolocation) {
   );
 }
 
-const appMap = new App()
-
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
-  //Display Marker
-  console.log('Map Event', mapEvent, 'inputDistance -- >', inputDistance.value);
-  L.marker([mapEvent.latlng.lat, mapEvent.latlng.lng])
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxWidth: 250,
-        minWidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-      })
-    )
-    .setPopupContent()
-    .openPopup();
-  const items = JSON.parse(localStorage.getItem('userInfo')) || [];
-
-  let obj = {
-    lat: mapEvent.latlng.lat,
-    lng: mapEvent.latlng.lng,
-    Distance: inputDistance.value,
-    Duration: inputDuration.value,
-  };
-  items.push(obj);
-  const stringObj = JSON.stringify(items);
-
-  localStorage.setItem('userInfo', stringObj);
-});
-
-inputType.addEventListener('change', function () {
-  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-});
+const appMap = new App();
