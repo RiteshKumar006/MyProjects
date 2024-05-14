@@ -133,7 +133,6 @@ class App {
     const { lat, lng } = this.#mapEvent.latlng
     let workout;
 
-    console.log(distance, type)
     if (type == "running") {
       console.log("running", distance)
       const cadence = +inputCadence.value
