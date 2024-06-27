@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 const intialGameBoard = [
   [null, null, null],
@@ -37,7 +37,7 @@ const GameBoard = ({handleSelectSquare, turn}) => {
             {row.map((playerSymbol, columnIndex) => (
               <li key={columnIndex}>
                 <button
-                  onClick={handleSelectSquare}
+                  onClick={()=> handleSelectSquare(rowIndex, columnIndex)}
                   
                 >
                   {/* {console.log(rowIndex, columnIndex)} */}
