@@ -3,6 +3,7 @@ import GameBoard from "./components/GameBoard";
 import PlayerName from "./components/Players";
 import {WINNING_COMBINATIONS} from './winning-combinations'
 import "./App.css";
+import GameOver from './components/GameOver';
 
 const intialGameBoard = [
   [null, null, null],
@@ -25,7 +26,7 @@ function deriveActivePLayer(gameTurn){
 function App() {
   const [gameTurns, setGameTurns] = useState([])
   // const [activePlayer, setActivePlayer] = useState('X')
-  let gameBoard = intialGameBoard;
+  let gameBoard = [...intialGameBoard.map((innerArray) => [...innerArray])];
 
   for(let turnData of gameTurns){
       const {square, player} = turnData;
@@ -59,6 +60,12 @@ function App() {
       })
   }
 
+  function handleRestart(){
+    console.log("restrt")
+    setGameTurns([])
+    winning = null
+  }
+
   return (
     <>
       <div className="game-container">
@@ -66,7 +73,8 @@ function App() {
           <PlayerName playerName={"Player1"} symbol="X" />
           <PlayerName playerName={"Player2"}  symbol ="O"/>
         </ol>
-        {winning && <p>You won the match {winning}  </p>}
+        {winning &&  <GameOver onRestart={ ()=> handleRestart()} />}
+       
         <GameBoard handleSelectSquare={handleSelectSquare} board ={gameBoard} />
       </div>
     </>
