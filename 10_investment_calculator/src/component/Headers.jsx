@@ -1,10 +1,12 @@
-// import logo from '../assets/Investment-Calculator-logo';
-// const logo = await import('../assets/Investment-Calculator-logo')
+
+import logo from '../assets/investment-calculator-logo.png'
 const Header =() =>{
-    return <header>
-        <img   alt='logo showing a money bag'/>
+    return ( 
+    <header id='header'>
+        <img src={logo}  alt='logo showing a Money bag'/>
         <h1>Investment Calculator</h1>
     </header>
+    )
 }
 
 export default Header;
