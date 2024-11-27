@@ -17,7 +17,7 @@ export const renderTotals = (carts=[]) => {
 
 
 export const renderItems = (rows) => {
- const domNodes = rows.map(({product, quantity, cost}) => {
+ const domNodes = rows?.map(({product, quantity, cost}) => {
    return `<div class="cart-row">
               <div class="item">${product}</div>
               <div class="quantity">${quantity}</div>

@@ -12,20 +12,27 @@ currencyPicker.innerHTML = Object.keys(currencyRates)
   .join("");
 
 const currencyConverter = (currency, rates, fn) => {
-  const currencyRates = rates[currency];
+  // console.log(this.value)/
+  const conversionRates = rates[currency] ??  1;
   return (cart) => {
-    const revised = cart.map((item) => {
+    const revised = cart?.map((item) => {
       return {
         ...item,
-        const: item.cost * currencyRates,
+        cost: item.cost * conversionRates,
       };
     });
+    return fn(revised);
   };
 };
 
-const computeCart = (cart) => {
-  renderTotals(cart);
-  renderItems(cart);
+const computeCart = function() {
+const currency =  this?.value;
+  currencyConverter(currency, currencyRates, renderItems)(cart);
+  currencyConverter(currency, currencyRates, renderTotals)(cart);
+  // renderTotals(cart);
+  // renderItems(cart);
 };
 
-computeCart(cart);
+
+currencyPicker.addEventListener("change", computeCart);
+computeCart();
