@@ -2,9 +2,24 @@ import React, {Component} from "react";
 import Item from "./Item";
 
 class App extends Component {
+  state={
+    items:[
+    {
+      name:"Ice cream",
+      id:1
+    }
+  ]}
   add = e => {
     if (e.keyCode === 13) {
       // When the enter key is pressed
+      let newItem ={
+        name: e.target.value,
+        id: Date.now()
+      }
+      this.setState({
+        items: [...this.state.items, newItem]
+      })
+      console.log(this.state.items) 
       // Update the state with the new item
       e.target.value = "";
     }
@@ -19,8 +34,7 @@ class App extends Component {
           />
         </div>
         <div className="items-holder">
-          <Item name="Ice cream" />
-          <Item name="Chocolates" />
+          { this.state.items.map(item =><Item name={item.name} key={item.id}/>)}
         </div>
       </div>
     );
