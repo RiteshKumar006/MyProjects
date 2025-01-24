@@ -23,22 +23,6 @@ itemInput.addEventListener('keyup', function(evt){
 
 })
 
-shoppingListDiv.addEventListener('click', function(evt){
-    // Priority
-    if(evt.target.parentElement.classList.contains('priority-control')){
-      const priority = evt.target.classList.value;
-      const itemId = evt.target.parentElement.parentElement.getAttribute('data-id');
-
-    
-      // Set priority
-      setPriority(itemId, priority);
-      // Render View
-      renderShoppingList();
-      
-    }
-})
-
-
 // itemInput.addEventListener('keyup', function (evt) {
 //   if (evt.key === 'Enter') {
 //     // Add to shopping list
@@ -48,6 +32,37 @@ shoppingListDiv.addEventListener('click', function(evt){
 //     this.value = '';
 //   }
 // });
+
+shoppingListDiv.addEventListener('click', function(evt){
+    // Priority
+    if(evt.target.parentElement.classList.contains('priority-control')){
+      const priority = evt.target.classList.value;
+      const itemId = evt.target.parentElement.parentElement.getAttribute('data-id');
+      // Set priority
+      setPriority(itemId, priority);
+      // Render View
+      renderShoppingList();
+    }
+
+    if(evt.target.classList.contains('remove-btn')){
+      const itemId = evt.target.parentElement.getAttribute('data-id');
+      if(removeItem(itemId)){
+        renderShoppingList();
+      }
+    }
+})
+
+
+clearCompletedBtn.addEventListener('click', (evt)=>{
+    clearCompleted
+})
+
+
+shoppingListDiv.addEventListener('dragstart', (evt) =>{
+    if(evt.target.classList.contains('item')){
+        let getId
+     }
+})
 
 // shoppingListDiv.addEventListener('click', function (evt) {
 //   // Priority

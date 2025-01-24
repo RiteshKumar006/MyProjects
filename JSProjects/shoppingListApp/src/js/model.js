@@ -39,6 +39,10 @@ export const removeItem =(itemId)=>{
 
 export const getShoppingList = () => shoppingList;
 
+export const  clearCompleted = () => {
+  completedList=[]
+}
+
 // export const addToShoppingList = (item) => {
 //   const itemId = `${parseInt(
 //     Math.random() * 100000000
