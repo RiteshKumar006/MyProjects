@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const auth = require("./routes/auth");
 require('./connection/connection')
+const auth = require("./routes/auth");
 app.use(express.json())
 
 app.get("/", (req,res)=>{

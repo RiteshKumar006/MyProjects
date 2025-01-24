@@ -12,7 +12,7 @@ router.post("/register", async(req, res) =>{
         // console.log("user created", user)
     }catch(error){
         console.log(error)
-        res.status(400).json({error: error.message})
+        res?.status(400).json({error: error.message})
     }
 })
 

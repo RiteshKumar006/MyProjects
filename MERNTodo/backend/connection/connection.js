@@ -5,7 +5,8 @@ const connectDB = async (req, res) => {
         console.log("Connected to DB")
     })
    }catch(error){
-    res.status(400).json({Message: "Error in connecting to DB"})
+    console.log(error)
+    res?.status(400).json({Message: "Error in connecting to DB"})
    }
 }
 connectDB()
