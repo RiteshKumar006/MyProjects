@@ -1,0 +1,16 @@
+.user-img{
+    width: 30px;
+    height: 30px;
+}
+
+.btn-nav{
+    background-color: rgb(105, 178, 197);
+    border-radius: 4px;
+    margin: 0px 5px 0px 5px;
+}
+.btn-nav:hover{
+    background-color: rgb(35, 87, 70);
+    color: white !important;
+    font-weight: bold;
+    font-size: 15px;
+}
