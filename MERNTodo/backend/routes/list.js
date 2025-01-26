@@ -56,10 +56,14 @@ router.delete("/deleteTask/:id", async (req, res) => {
 
   //getTask
   router.get("/getTasks/:id",async(req, res)=>{
-    const list = await List.find({user: req.params.id});
+    const list = await List.find({user: req.params.id}).sort({createdAt: 1});
     // const taskList = JSON.stringify(list)
+    if(list.length !== 0){
     res.status(200).json({list})
-    console.log("lit", list)
+    console.log("lit", list)}
+    else{
+        res.status(200).json({message: "N o Task"})
+    }
 
   })
 module.exports = router;
