@@ -10,11 +10,11 @@ router.post("/register", async(req, res) =>{
         const {email,username, password} = req.body;
         const hashPassword = bcyptjs.hashSync(password)
         const user = new User({email,username, password: hashPassword});
-        await user.save().then(()=> res.status(200).json({user: user}))
+        await user.save().then(()=> res.status(200).json({message: "User created"}))
         // console.log("user created", user)
     }catch(error){
         console.log(error)
-        res?.status(400).json({error: error.message})
+        res?.status(200).json({message:"User already exists"})
     }
 })
 
@@ -22,9 +22,9 @@ router.post("/register", async(req, res) =>{
 router.post("/singin", async(req,res)=>{
     try{
         const userFound = await User.findOne({email: req.body.email})
-    console.log("req", JSON.stringify(req.body), userFound.password)
+    console.log("req", JSON.stringify(req.body), userFound?.password)
     if(!userFound){
-        res.status(400).json({message: "Please Signup first"})
+        res.status(200).json({message: "Please Signup first"})
     }
 
     const isPasswordCorrect = bcyptjs.compareSync(req?.body?.password, userFound?.password)
@@ -36,7 +36,6 @@ router.post("/singin", async(req,res)=>{
     res.status(200).json({others})
     }catch(error){
         console.log(error)
-
     }
 })
 

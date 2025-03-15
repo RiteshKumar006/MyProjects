@@ -1,17 +1,27 @@
 import React from "react";
-import "./Navbar.css"
+import "./navbar.css"
 import { RiCalendarTodoLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FaHome } from "react-icons/fa";
+import { authActions } from "../../store";
 function Navbar() {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch()
+  console.log("isLoggedIn", isLoggedIn);
+  const logouthandle = () =>{
+    dispatch(authActions.logout())
+    sessionStorage.removeItem("id")
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="/">
             <RiCalendarTodoLine />
             
            <b> Todo </b>
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -26,30 +36,37 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active btn-nav" aria-current="page" href="#">
+                <Link className="nav-link active btn-nav" aria-current="page" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active btn-nav" aria-current="page" href="#">
+                <Link className="nav-link active btn-nav" aria-current="page" to="/about">
                   About Us
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active btn-nav" aria-current="page" href="#">
+                <Link className="nav-link active btn-nav" aria-current="page" to="/todo">
+                  Todo
+                </Link>
+              </li>
+              {!isLoggedIn && <>
+                <li className="nav-item">
+                <Link className="nav-link active btn-nav" aria-current="page" to="/signup">
                   SignUp
-                </a>
+                </Link>
               </li>
               <li className="nav-item ">
-                <a className="nav-link active btn-nav" aria-current="page" href="#">
+                <Link className="nav-link active btn-nav" aria-current="page" to="/signin">
                   Login
-                </a>
+                </Link>
               </li>
-              <li className="nav-item ">
-                <a className="nav-link active" aria-current="page" href="#">
-                  <img alt="Logout" className="user-img" src="https://cdn-icons-png.flaticon.com/512/6676/6676023.png" />
-                </a>
-              </li>
+              </>}
+              { isLoggedIn && <li onClick={logouthandle} className="nav-item ">
+              <Link className="nav-link active btn-nav" aria-current="page" to="/signin">
+                  Logout
+                </Link>
+              </li>}
             </ul>
            
           </div>
