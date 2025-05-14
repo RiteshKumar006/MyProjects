@@ -13,13 +13,27 @@ function TablePage() {
     ]
 
     const config = [
-        {label:"Fruits"},
-        {label:"Color"},
-        {label:"Score"}
-    ]
+        {label:"Fruits",
+          render: (fruit) => fruit.name
+        },
+        {label:"Color",
+          render: (fruit) => fruit.color,
+        },
+        {label:"Score",
+          render : (fruit) => fruit.score,
+        },
+        // {
+        //   label:"Action",
+        //   render: (fruit) => <button className="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
+        // }
+    ];
+
+    const keyFn = (fruit) => {
+        return fruit.name
+    }
   return (
     <div>
-        <Table data={data} config={config} />
+        <Table data={data} config={config} keyFn={keyFn} />
     </div>
   )
 }
